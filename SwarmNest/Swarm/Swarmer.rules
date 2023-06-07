@@ -1,0 +1,220 @@
+
+
+ID = "wer24.Swarmer"
+//OtherIDs = ["point_defense_shot", "pd_shot"]
+Range = 2000
+IdealRange = 2000
+Speed = 70
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.7
+		Density = 0.01
+		CollidesWithBullets = true
+	}
+
+	Death
+	{
+		Type = DeathByLifetime
+		
+		// Lifetime will be auto-calculated based on range and speed.
+	}
+	
+	DeathByEnemyProximity
+	{
+	Type = DeathByEnemyProximity
+		Interval = .1
+		Range = 100
+		DetectsShips = false
+		DetectsBullets = true
+		OnlyBulletCategories = [missile, mine, bullet]
+		StartDelay = 0
+		OnDeath
+		{
+			HitEffects
+			[
+				{
+					Type = SpawnBullets
+					Bullet = &<./Data/shots/pd_shot/pd_shot.rules>
+					Count = 200
+					Distance = .1
+					Spread = [0d, 10d]
+					InheritVelocity = true
+				}
+			]
+		
+		MediaEffects
+			[
+				&<./Data/shots/missile_he/particles/missile_he_hit.rules>
+				&<./Data/shots/missile_he/particles/missile_he_flash.rules>
+				&<./Data/shots/mine/particles/mine_range_ring.rules>
+
+				/*: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "../missile_he/missile_he_hit.wav"
+					Volume = .75
+					SpeedVariation = .4
+				}
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "alarm.wav"
+					Volume = 1
+					SpeedVariation = 0
+				}
+
+				: /BASE_SHAKE
+				{
+					ShakeAmount = .1
+					Duration = .75
+				}
+				*/
+			]
+		}
+	}
+
+		
+	Homing
+	{
+		Type = TargetHoming
+		TurnVelocity = 600d
+		Delay = .1
+		AvoidanceRaycastDistance = 50
+		VelocityCompensation = 80%
+	}
+	
+	Retarget
+	{
+		Type = SameShipRetarget
+		DetectsShips = false
+		DetectsBullets = true
+	}
+	
+	
+	
+	Acceleration
+	{
+		Type = Acceleration
+		Acceleration = 55
+	}
+	NegativeAcceleration
+	{
+		Type = Acceleration
+		Acceleration = [-200, 0]
+		AccelerationOverTime = [0, .75]
+		Direction = FrameOfReferenceVelocity
+	}
+		
+	Sprite
+	{
+		Type = Sprite
+		RenderBucket = BulletLower1
+		Sprite
+		{
+			Texture
+			{
+				File = "swarmshotv3.png"
+				SampleMode = Linear
+				MipLevels = max
+			}
+			Size = [2, 2]
+		}
+		Offset = [0, 0]
+		LerpScaleFrom = [.25, 1]
+		LerpTime = .05
+	}
+	GlowSprite
+	{
+		Type = Sprite
+		RenderBucket = BulletUpper2
+		Z = 0
+		IsLight = true
+		Offset = [-1, 0]
+		Sprite
+		{
+			Texture
+			{
+				File = pd_shot_glow.png
+				MipLevels = max
+				SampleMode = Linear
+			}
+			Size = [1, 2]
+			VertexColor = [255, 255, 255]
+			TargetBlendMode = Add
+			//Shader = "fancy_light.shader"
+			//_litReflectiveStrength = 24
+			//_litAdditiveStrength = 0.05
+			//_unlitAdditiveStrength = 0.2
+		}
+		LerpScaleFrom = [.25, 1]
+		LerpTime = .05
+	}
+MediaEffects
+	{
+		Type = MediaEffects
+		Offset = [-.5, 0]
+		Rotation = 180d
+		MediaEffects
+		[
+			&<./Data/shots/missile_he/particles/missile_he_smoke.rules>
+			&<./Data/shots/missile_he/particles/missile_he_thruster_fire.rules>
+			&<./Data/shots/missile_he/particles/missile_he_thruster_plume.rules>
+			&<./Data/shots/missile_he/particles/missile_he_thruster_plume_light.rules>
+		]
+	}
+
+	Hit
+	{
+		Type = SimpleHit
+
+        BulletCollisions
+        {
+            Enemies = true
+            Junk = true
+            Friendlies = true
+            OnlyBulletCategories = [missile, mine, bullet]
+        }
+		HitBullet
+		{
+			Offset = [-0.15, 0]
+
+			HitEffects
+			[
+				{
+					Type = Damage
+					Damage = 1000
+				}
+			]
+
+			MediaEffects
+			[
+				&<particles/pd_shot_spikes.rules>
+				&<particles/pd_shot_sparks.rules>
+				
+				&<./Data/ships/terran/point_defense/particles/point_defense_shoot_flash.rules>
+			]
+		}
+
+		CrewCollisions = {Enemies=true; Junk=true}
+		HitCrew = &HitOperational
+
+		HitShield = &HitOperational
+		HitOperational
+		{
+			Offset = [-0.15, 0]
+
+			HitEffects
+			[
+				{
+					Type = Damage
+					Damage = 35
+				}
+			]
+			MediaEffects = &../HitBullet/MediaEffects
+		}
+		HitStructural = &HitOperational
+	}
+}

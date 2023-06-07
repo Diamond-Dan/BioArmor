@@ -1,0 +1,455 @@
+// Every mod must have an ID that is used to uniquely identify the mod and differentiate it from other mods.
+// In order to avoid ID conflicts with other mods, you *must* follow the "author_name.mod_name" format.
+// Do *not* use "cosmoteer" as your author name -- that is reserved for official mods only!
+ID = wer24.BioArmor
+
+// You must give a human-readable name for your mod. This is what will be shown in the user interface.
+Name = "BioArmor"
+
+// The version of the mod that will be shown in the user interface. This is optional.
+Version = 0.3
+
+// This is a list of Cosmoteer versions that this mod is known to be compatible with.
+// If this mod is turned on and it isn't known to be compatible with the version of Cosmoteer
+// that the player is running, a warning will be displayed. When upgrading the game, mods
+// that aren't known to be compatible with the new version will also be automatically disabled.
+CompatibleGameVersions = ["0.20.27"]
+
+// This should be set to true for any mod that makes gameplay changes that could affect multiplayer games.
+// Setting this to false *MAY* make it possible to play with someone else who doesn't have this mod,
+// so long as this mod doesn't actually make any gameplay changes. (Setting this to false will *NOT*
+// magically allow you to play with someone who doesn't have this mod; it will just make the error
+// less informative.) If omitted, the default is true.
+ModifiesMultiplayer = true
+
+// The name of the mod creator(s) that will be shown in the user interface. This is optional.
+Author = "Wer24"
+
+// A logo to display for your mod in the user interface. This is optional.
+Logo = "logo.png"
+
+// A longer description of what your mod does to the game. This is optional.
+Description = "A mod that adds a new type of ship parts that use the Power of the OverMind to heal. It also adds two new resources, flesh and BioMass. BioArmor blocks prevent the use of shields but have high damage resistance and regeneration. BioWeapons will be coming soon!"
+
+// Mods can define their own per-language string files.
+// The values in a string file (such as en.rules) will add to
+// and override any values in the base string file (such as Data\strings\en.rules).
+// Each language supported should have its own string file named
+// after the two-letter 639-1 language code for that language.
+StringsFolder = "strings"
+
+// The primary way mods modify the game is through "actions".
+//
+// Actions are little commands that modify the game's .rules files *after* they have been
+// loaded into RAM. (The actual .rules files in the 'Data' folder are never modified
+// and so disabling a mod will cause the game to revert back to its vanilla state.)
+//
+// First, the game loads the vanilla .rules files normally.
+// Then, for every mod that is enabled, that mod's "actions" are run on
+// top of the loaded .rules files, modifying them.
+//
+// Using this technique, mods can make almost any change to the game
+// that *could* be made by modifying the .rules files directly, but
+// without actually having to make any permanent changes to the game files.
+//
+// The examples below show all the different kinds of "actions" that can be
+// performed on the vanilla .rules data.
+//
+// Note that it's very easy to make a modification that will cause the game
+// to crash when loading. The log .txt file may have details on why it crashed.
+//
+// There are a small number of .rules files that can't be modified using actions.
+// The most prominent example is the language string files (such as en.rules)
+// which are modified using the StringsFolder setting above.
+Actions
+[
+
+	
+		
+	// Add the "bio armor" parts.
+	{
+		// The "AddMany" action is similar to the "Add" action, but it can
+		// add multiple data fields to a single [] list, and it can't
+		// add named data fields. (You should use Overrides to add multiple named data fields.)
+		Action = AddMany
+
+		// This is the [] list to which we want to add data fields.
+		AddTo = "<ships/terran/terran.rules>/Terran/Parts"
+
+		// If this is set to true, the 'AddTo' will be created if it doesn't exist.
+		// This is optional and will default to false.
+		CreateIfNotExisting = false
+
+		// If this is set to true, this action will do nothing if the 'AddTo' doesn't exist instead of giving an error.
+		// This is optional and will default to false.
+		IgnoreIfNotExisting = false
+
+		// These are the data fields we want to add to the [] list.
+		ManyToAdd
+		[
+			&<BioArmor/BioArmor.rules>/Part
+			&<BioArmor_Wedge/BioArmorWedge.rules>/Part
+			&<Undertent/UnderTent.rules>/Part
+			&<MindBlob/MindBlob.rules>/Part
+			&<BioMass_Corridor/BioMass_Corridor.rules>/Part
+			&<HardBioArmor/HardBioArmor.rules>/Part
+			//will add weapon later not ready yet and im going on vacation
+			&<SwarmNest/SwarmNest.rules>/Part
+		]
+	}
+// Add the "bio armor" resources.
+	{
+		// The "AddMany" action is similar to the "Add" action, but it can
+		// add multiple data fields to a single [] list, and it can't
+		// add named data fields. (You should use Overrides to add multiple named data fields.)
+		Action = AddMany
+
+		// This is the [] list to which we want to add data fields.
+		AddTo = "<resources/resources.rules>/Resources"
+
+		// If this is set to true, the 'AddTo' will be created if it doesn't exist.
+		// This is optional and will default to false.
+		CreateIfNotExisting = false
+
+		// If this is set to true, this action will do nothing if the 'AddTo' doesn't exist instead of giving an error.
+		// This is optional and will default to false.
+		IgnoreIfNotExisting = false
+
+		// These are the data fields we want to add to the [] list.
+		ManyToAdd
+		[
+		
+			&<Flesh/Flesh.rules>
+			&<BioMass/BioMass.rules>
+		]
+	}
+	// Add the "bio armor" doodads.
+	{
+		// The "AddMany" action is similar to the "Add" action, but it can
+		// add multiple data fields to a single [] list, and it can't
+		// add named data fields. (You should use Overrides to add multiple named data fields.)
+		Action = AddMany
+
+		// This is the [] list to which we want to add data fields.
+		AddTo = "<doodads/doodads.rules>/Doodads"
+
+		// If this is set to true, the 'AddTo' will be created if it doesn't exist.
+		// This is optional and will default to false.
+		CreateIfNotExisting = false
+
+		// If this is set to true, this action will do nothing if the 'AddTo' doesn't exist instead of giving an error.
+		// This is optional and will default to false.
+		IgnoreIfNotExisting = false
+
+		// These are the data fields we want to add to the [] list.
+		ManyToAdd
+		[
+		
+			&<Flesh/doodad_resource_flesh.rules>
+			&<BioMass/doodad_resource_BioMass.rules>
+		]
+	}
+	
+	// Add the Flesh Storage to crew quarters med
+	{
+		// The "AddBase" action adds a reference to the inheritance list of an existing
+		// {} group or [] list.
+		Action = AddBase
+
+		// The {} group or [] list which should inherit from the below BaseToAdd.
+		AddBaseTo = "<ships/terran/crew_quarters_med/crew_quarters_med.rules>/Part/Components"
+
+		// If this is set to true, this action will do nothing if the 'AddBaseTo' doesn't exist instead of giving an error.
+		// This is optional and will default to false.
+		IgnoreIfNotExisting = false
+
+		// The file, {} group, or [] list which the above AddBaseTo should inherit from.
+		BaseToAdd = &<FleshCreatorComponents.rules>
+	}
+		// Add the Flesh Storage to small crew quarters med
+	{
+		// The "AddBase" action adds a reference to the inheritance list of an existing
+		// {} group or [] list.
+		Action = AddBase
+
+		// The {} group or [] list which should inherit from the below BaseToAdd.
+		AddBaseTo = "<ships/terran/crew_quarters_small/crew_quarters_small.rules>/Part/Components"
+
+		// If this is set to true, this action will do nothing if the 'AddBaseTo' doesn't exist instead of giving an error.
+		// This is optional and will default to false.
+		IgnoreIfNotExisting = false
+
+		// The file, {} group, or [] list which the above AddBaseTo should inherit from.
+		BaseToAdd = &<FleshCreatorComponents.rules>
+	}
+	
+	//add the OverMind to the Buff rules
+	{
+	
+		Action = Overrides
+		OverrideIn = "<buffs/buffs.rules>/"
+		CreateIfNotExisting = false
+		IgnoreIfNotExisting = false
+	Overrides
+	{
+		OverMind
+		{
+			CombineMode = Add
+			
+			//Icon
+			//{
+			//Texture
+			//{
+				//File = "buff_factory.png"
+				//MipLevels = 1
+				//SampleMode = Linear
+			//}
+			//Size = [2, 2]
+			//}
+	//	IconTextFormatKey = "BuildBox/BuffPercentageFmt"
+	//	IconTextMultiply = 1
+		//IconTextAdd = 1
+
+		RectBorderColor = [10, 212, 98, 160]
+	RectFillColor = [10, 250, 98, 64]
+		
+		}
+
+		}
+
+
+		
+	}
+	//add the OverMindKiller to the Buff rules
+	{
+	
+		Action = Overrides
+		OverrideIn = "<buffs/buffs.rules>/"
+		CreateIfNotExisting = false
+		IgnoreIfNotExisting = false
+	Overrides
+	{
+		OverMindKiller
+		{
+			CombineMode = Add
+			
+			//Icon
+			//{
+			//Texture
+			//{
+				//File = "buff_factory.png"
+				//MipLevels = 1
+				//SampleMode = Linear
+			//}
+			//Size = [2, 2]
+			//}
+	//	IconTextFormatKey = "BuildBox/BuffPercentageFmt"
+	//	IconTextMultiply = 1
+		//IconTextAdd = 1
+
+		RectBorderColor = [10, 212, 98, 160]
+	RectFillColor = [10, 50, 98, 64]
+		
+		}
+
+		}
+
+
+		
+	}
+	
+	
+	
+	// Add the OverMindBuff to the buff table
+	{
+		// The "AddBase" action adds a reference to the inheritance list of an existing
+		// {} group or [] list.
+		Action = AddMany
+
+		AddTo = "<gui/game/parts/part_stats.rules>/PartStats"
+		CreateIfNotExisting = false
+	
+		IgnoreIfNotExisting = false
+
+		// The file, {} group, or [] list which the above AddBaseTo should inherit from.
+		ManyToAdd 
+		[
+		&<MindBlob/MindBlobBuff.rules>
+		]
+	}
+	
+		// Add the OverMindKillerBuff to the buff table
+	{
+		// The "AddBase" action adds a reference to the inheritance list of an existing
+		// {} group or [] list.
+		Action = AddMany
+
+		AddTo = "<gui/game/parts/part_stats.rules>/PartStats"
+		CreateIfNotExisting = false
+	
+		IgnoreIfNotExisting = false
+
+		// The file, {} group, or [] list which the above AddBaseTo should inherit from.
+		ManyToAdd 
+		[
+		&<MindBlob/MindBlobKillerBuff.rules>
+		]
+	}
+	
+	//destroy small shields if OverMind is present
+	{
+	
+	Action = AddMany
+		AddTo = "<ships/terran/shield_gen_small/shield_gen_small.rules>/Part/ReceivableBuffs"
+
+		
+	
+	ManyToAdd = [OverMindKiller]
+	
+	}
+	
+
+	
+	
+	
+	//destroy small shields if OverMind is present
+	{
+	Action = Overrides
+		OverrideIn ="<ships/terran/shield_gen_small/shield_gen_small.rules>/Part/Components"
+		CreateIfNotExisting = true
+	IgnoreIfNotExisting = false
+	Overrides
+		{
+		
+
+	HealOverTimeTimer
+		{
+		
+			Type = Timer
+			Duration = 1
+			TriggerWhenOn = true
+			TriggerWhenOff = false
+			AutoStart = true
+			Repeats = true
+		}
+		
+		
+HealingFromTimer
+		{
+		Type = TriggeredEffects
+            Trigger = HealOverTimeTimer
+            MediaEffects [   ]
+            HitEffects 
+            [
+                {
+				
+                    Type = Damage
+                  Damage = { BaseValue=0; BuffType=OverMindKiller; BuffMode=Add; }
+                    Filter
+                    {
+                      Friendlies = true
+                      IgnoreInvulnerability = true
+					}
+				}
+			]
+			
+		}
+	
+		}
+		
+	}
+	
+	//destroy small shields if OverMind is present
+	{
+	
+	Action = AddMany
+		AddTo = "<ships/terran/shield_gen_large/shield_gen_large.rules>/Part/ReceivableBuffs"
+
+		
+	
+	ManyToAdd = [OverMindKiller]
+	
+	}
+	
+
+	
+	
+	
+	//destroy large shields if OverMind is present
+	{
+	Action = Overrides
+		OverrideIn ="<ships/terran/shield_gen_large/shield_gen_large.rules>/Part/Components"
+		CreateIfNotExisting = true
+	IgnoreIfNotExisting = false
+	Overrides
+		{
+		
+
+	HealOverTimeTimer
+		{
+		
+			Type = Timer
+			Duration = 1
+			TriggerWhenOn = true
+			TriggerWhenOff = false
+			AutoStart = true
+			Repeats = true
+		}
+		
+		
+HealingFromTimer
+		{
+		Type = TriggeredEffects
+            Trigger = HealOverTimeTimer
+            MediaEffects [   ]
+            HitEffects 
+            [
+                {
+				
+                    Type = Damage
+                  Damage = { BaseValue=0; BuffType=OverMindKiller; BuffMode=Add; }
+                    Filter
+                    {
+                      Friendlies = true
+                      IgnoreInvulnerability = true
+					}
+				}
+			]
+			
+		}
+	
+		}
+		
+	}
+	
+	
+	//add the Healling to the Gui rules
+	{
+	
+		Action = Add
+		AddTo = "<gui/game/parts/part_stats.rules>/PartStats"
+		
+	ToAdd
+	{
+	
+		ID = Healing
+		FormatKey = "Stats/HealingStatFmt"
+	
+
+	}	
+	}
+
+	// Add custom roof decals. (In this example we're adding decals to the "symbols" category.
+	{
+		Action = Add
+		AddTo = "<roof_decals/roof_decals.rules>/Groups/1/Folders"
+		ToAdd = "roof_decals"
+	}
+
+	// Add custom roof textures.
+	{
+		Action = Add
+		AddTo = "<ships/terran/terran.rules>/Terran/Roofs/RoofTexturesFolders"
+		ToAdd = "roof_textures"
+	}
+]

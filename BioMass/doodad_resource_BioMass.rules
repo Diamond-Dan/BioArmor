@@ -1,0 +1,13 @@
+	ID = wer24.resource_BioMass
+Type = Resource
+DescriptionKey = "Resources/BioMassDesc"
+CategoryKey = "Doodads/Resources"
+Icon
+{
+	Texture
+	{
+		File = "BioMassStack.png"
+		MipLevels = 2
+	}
+}
+ResourceType = BioMass

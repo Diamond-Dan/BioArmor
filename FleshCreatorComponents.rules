@@ -1,0 +1,33 @@
+		FleshStorage
+		{
+			Type = ResourceStorage
+			ResourceType = Flesh
+			MaxResources = 10
+			StartingResources = 0
+			//GridRect = [0, 1, 1, 1]
+			//Layer = "structure"
+			//SpriteInset = [8/64, 6/64, 2/64, 9/64]
+			SuppliesResources = false
+			//RandomSpriteRotation = true
+			DropResourcesWhenDestroyed = true
+		}
+		
+		ResourceConverter
+		{
+			FlagToggle = None
+			Type = ResourceConverter
+			From
+			[
+			    {
+			        Storage = FleshStorage
+			        Quantity = 0
+			    }
+			   
+			]
+			ToStorage = FleshStorage
+			ToQuantity = 10
+			Interval = { BaseValue=1; BuffType=Factory; BuffMode=Divide; }
+		}
+		
+		
+	

@@ -1,0 +1,93 @@
+
+//Resources : <./Data/resources/resources.rules>/Resources
+
+
+ID = Flesh
+NameKey = "Resources/FleshNameKey"
+PluralNameKey = "Resources/FleshPluralNameKey"
+DescriptionKey = "Resources/FleshDesc"
+BuyPrice = 0
+SellPrice = 0
+MaxPerNugget = 1
+MaxStackSize = 10
+FlexGridPriorityKey = "flex_grid_steel"
+FlexGridDefaultPriority = 1
+DropRates = &<FleshDropRules.rules>/FleshDropRates
+
+Icon
+{
+	Texture
+	{
+		File = "deadman.png"
+		MipLevels = max
+	}
+	Size = [64, 64]
+}
+
+Overlay
+{
+	Texture
+	{
+		File = "overlay.png"
+		SampleMode = Linear
+		MipLevels = max
+	}
+	Size = [1, 1]
+}
+
+NuggetSprites
+[
+	{
+	File = "deadman.png"
+		NormalsFile = "deadman_normals.png"
+	Size = [1, 1]
+	Offset = [.25+5/64, 0]
+	UVRotation = 1
+	}
+	{
+		File = "deadman2.png"
+		NormalsFile = "deadman_normals2.png"
+		Size = [1, 1]
+		Offset = [.25+5/64, 0]
+		UVRotation = 1
+	}
+	{
+		File = "deadman3.png"
+		NormalsFile = "deadman_normals3.png"
+		Size = [1, 1]
+		Offset = [.25+5/64, 0]
+		UVRotation = 1
+	}
+	{
+		File = "deadman4.png"
+		NormalsFile = "deadman_normals4.png"
+		Size = [1, 1]
+		Offset = [.25+5/64, 0]
+		UVRotation = 1
+	}
+	{
+		File = "deadman.png"
+		NormalsFile = "deadman_normals.png"
+		Size = [1, 1]
+		Offset = [.25+5/64, 0]
+		UVRotation = 1
+	}
+]
+
+StackSprites
+[
+	{
+		File = "deadmanstack.png"
+		Size = [1, 1]
+	}
+	{
+		File = "deadmanstack2.png"
+		Size = [1, 1]
+	}
+]
+
+StackReceiveMediaEffects = &/COMMON_EFFECTS/MetalDeliver
+StackPickupMediaEffects = &/COMMON_EFFECTS/ResourcePickup
+NuggetPickupMediaEffects = &/COMMON_EFFECTS/NuggetPickup
+
+

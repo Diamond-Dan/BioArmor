@@ -1,0 +1,10 @@
+FleshDropRates
+{
+	PartDestroyed = 50%
+	PartSalvaged = 50%
+	PlayerPartDestroyed = 50%
+	PlayerPartSalvaged = 50%
+	StorageDestroyed = 100%
+	StorageSalvaged = 50%
+	PartRepairCost = 25%
+}

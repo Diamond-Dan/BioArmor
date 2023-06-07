@@ -1,0 +1,10 @@
+BioMassDropRates
+{
+	PartDestroyed = 10%
+	PartSalvaged = 25%
+	PlayerPartDestroyed = 50%
+	PlayerPartSalvaged = 100%
+	StorageDestroyed = 100%
+	StorageSalvaged = 100%
+	PartRepairCost = 50%
+}

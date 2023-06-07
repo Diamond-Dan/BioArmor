@@ -1,0 +1,34 @@
+KilledByBrain = { BaseValue=1000; BuffType=OverMind; BuffMode=Multiply; }
+
+HealOverTimeTimer
+		{
+		
+			Type = Timer
+			Duration = 1
+			TriggerWhenOn = true
+			TriggerWhenOff = false
+			AutoStart = true
+			Repeats = true
+		}
+		
+		
+HealingFromTimer
+		{
+		
+		Type = TriggeredEffects
+            Trigger = HealOverTimeTimer
+            MediaEffects [   ]
+            HitEffects 
+            [
+                {
+                    Type = Damage
+                    Damage = &~/Part/KilledByBrain
+                    Filter
+                    {
+                      Friendlies = true
+                      IgnoreInvulnerability = true
+					}
+				}
+			]
+			
+		}

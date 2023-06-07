@@ -1,0 +1,13 @@
+ID = wer24.resource_flesh
+Type = Resource
+DescriptionKey = "Resources/FleshDesc"
+CategoryKey = "Doodads/Resources"
+Icon
+{
+	Texture
+	{
+		File = "deadman.png"
+		MipLevels = 2
+	}
+}
+ResourceType = Flesh
